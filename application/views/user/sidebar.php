@@ -69,12 +69,12 @@
 
             <!-- Nav Item - Tables -->
             <li class="nav-item">
-                <a class="nav-link text-primary" href="<?php echo base_url('#') ?>">
+                <a class="nav-link text-primary" href="<?php echo base_url('/dashboard/permintaan_sewa') ?>">
                     <i class="fas fa-fw fa-users"></i>
                     <span>Permintaan Sewa</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-primary" href="<?php echo base_url('#') ?>">
+                <a class="nav-link text-primary" href="<?php echo base_url('/dashboard/riwayat_sewa') ?>">
                     <i class="fas fa-fw fa-random"></i>
                     <span>Data Transaksi Anda</span></a>
             </li>

@@ -83,10 +83,10 @@
     <a href="<?php echo base_url('dashboard/index') ?>">
         <div class="btn btn-sm color-primary-bg text-white ml-1 mb-5 mt-3">Kembali Belanja</div>
     </a>
-    <button class="btn btn-sm btn-success ml-1 mb-5 mt-3" data-toggle="modal" data-target="#bayar">Lanjut</button>
+    <button class="btn btn-sm btn-success ml-1 mb-5 mt-3" id="btn-payment" data-toggle="modal" data-target="#bayar">Lanjut</button>
 </div>
 <div class="modal fade" id="bayar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header">
                 <div class="container font-size-20 text-center font-baloo ml-4 text-primary">
@@ -97,63 +97,87 @@
                             $grand_total = $grand_total + $item['subtotal'];
                         }
 
-                        echo "Total  Belanja Anda : Rp. " . number_format($grand_total, 0, ',', '.');
+                        echo "Subtotal  Belanja Anda : Rp. " . number_format($grand_total, 0, ',', '.');
                     ?>
                 </div>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
-                <form method="POST" action="<?php echo base_url('dashboard/proses_pesanan') ?> ">
-                    <div class="form-group">
-                        <label>Nama Lengkap</label>
-                        <input type="text" name="alamat" placeholder="Nama Lengkap Anda" class="form-control">
-                    </div>
+            <form method="POST" action="<?php echo base_url('dashboard/proses_pesanan') ?> " enctype="multipart/form-data">
+                <?php foreach ($this->cart->contents() as $items) : ?>
+                    <input type="hidden" name="brg[id_brg][]" value="<?php echo $items['id'] ?>">
+                    <input type="hidden" name="brg[denda_perhari][]" value="<?php echo $items['price'] ?>">
+                <?php endforeach; ?>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-5">
+                            <div class="form-group">
+                                <label>Nama Lengkap</label>
+                                <input type="text" name="alamat" placeholder="Nama Lengkap Anda" class="form-control" value="<?= $this->session->userdata('nama') ?>" readonly>
+                            </div>
 
-                    <div class="form-group">
-                        <label>Alamat Lengkap</label>
-                        <input type="text" name="alamat" placeholder="Alamat Lengkap Anda" class="form-control">
-                    </div>
+                            <div class="form-group">
+                                <label>Alamat Lengkap</label>
+                                <textarea class="form-control" name="alamat" readonly>
+                        <?= $this->session->userdata('alamat') ?>
+                        </textarea>
+                                <!-- <input type="text" name="alamat" placeholder="Alamat Lengkap Anda" class="form-control"> -->
+                            </div>
 
-                    <div class="form-group">
-                        <label>Tanggal Sewa</label>
-                        <input type="date" name="tanggal_sewa" placeholder="Nomor KTP Anda" class="form-control">
-                    </div>
+                            <div class="form-group">
+                                <label>Tanggal Sewa</label>
+                                <input type="date" name="tanggal_sewa" id="rent-date" class="form-control" readonly>
+                            </div>
 
-                    <div class="form-group">
-                        <label>Tanggal Kembali</label>
-                        <input type="date" name="tanggal_kembali" placeholder="Nomor Telepon Anda" class="form-control">
-                    </div>
+                            <div class="form-group">
+                                <label>Tanggal Kembali</label>
+                                <input type="date" name="tanggal_kembali" id="return-date" placeholder="Nomor Telepon Anda" class="form-control">
+                            </div>
 
-                    <div class="form-group">
-                        <label>Pengambilan Peralatan</label>
-                        <select class="form-control">
-                            <option>-- Chose --</option>
-                            <option>Datang Ketoko</option>
-                            <option>Ketemuan</option>
-                            <option>Diantar Kerumah (Khusus Semarang Timur)</option>
-                        </select>
+                            <div class="form-group">
+                                <label>Pengambilan Peralatan</label>
+                                <select class="form-control" name="jns_ambil">
+                                    <option>-- Choose --</option>
+                                    <option value="Ketoko">Datang Ketoko</option>
+                                    <option value="COD">Ketemuan</option>
+                                    <option value="Diantar">Diantar Kerumah (Khusus Semarang Timur)</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Pembayaran</label>
+                                <select class="form-control" name="jns_bayar" id="jns_bayar">
+                                    <option>-- Chose --</option>
+                                    <option value="bayar penuh">Bayar Penuh</option>
+                                    <option value="bayar 50%">Pembayaran Awal 50%</option>
+                                    <option value="bayar 30%">Pembayaran Awal 30%</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <input type="hidden" id="subtotal" name="subtotal" value="<?= $grand_total ?>">
+                                <label>Total Belanja</label><br>
+                                <input type="text" name="total" id="total" class="form-control" readonly>
+                            </div>
+                            <div class="form-group">
+                                <!-- <input type="hidden" id="subtotal" name="subtotal" value=""> -->
+                                <label>Total Bayar</label><br>
+                                <input type="text" name="bayar" id="harusbayar" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-lg-7">
+                            <div class="form-group">
+                                <label>Upload Bukti Pembayaran</label><br>
+                                <input type="file" name="bukti_bayar" id="bukti" class="form-control">
+                                <img class="img-fluid w-100 mh-100" id="preview" src="<?= base_url('assets/img/ok.jpg') ?>" alt="Chania">
+                            </div>
+                        </div>
                     </div>
-
-                    <div class="form-group">
-                        <label>Pembayaran</label>
-                        <select class="form-control">
-                            <option>-- Chose --</option>
-                            <option>Bayar Penuh</option>
-                            <option>Pembayaran Awal 50%</option>
-                            <option>Pembayaran Awal 30%</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Kirim Bukti Pembayaran</label><br>
-                        <input type="file" name="gambar" class="form-control">
-                    </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Kembali</button>
-                <button type="button" class="btn color-primary-bg text-white">Bayar</button>
-            </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Kembali</button>
+                    <button type="submit" class="btn color-primary-bg text-white btn-pay">Bayar</button>
+                </div>
+            </form>
         <?php
                     } else {
                         echo "Keranjang Belanja Anda Masih Kosong !!";

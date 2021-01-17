@@ -43,5 +43,6 @@
 <!-- End Header -->
 
 <div class="container py-4">
+    <h3>Transaksi Berhasil</h3>
 </div><img src="<?php echo base_url('assets/img/ok.jpg') ?>" alt="ok" class="mx-auto d-block mt-4 ml-2" style="width: 600px;"><br> <br><br><br>
 </div>

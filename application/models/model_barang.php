@@ -7,9 +7,44 @@ class Model_barang extends CI_Model
         return $this->db->get($table);
     }
 
+    public function getSewa($datafor = null, $where = null)
+    {
+        $this->db->select('*');
+        $this->db->from('tb_sewa');
+        $this->db->join('tb_detail_sewa', 'tb_sewa.id_sewa = tb_detail_sewa.id_sewa');
+        $this->db->join('tb_detail_bayar', 'tb_sewa.id_sewa = tb_detail_bayar.id_sewa');
+        $this->db->join('tb_barang', 'tb_barang.id_brg = tb_detail_sewa.id_brg');
+        $this->db->join('customer', 'tb_sewa.id_customer = customer.id_customer');
+        $this->db->group_by('kode');
+        if ($where != null && $datafor == 'permintaan') {
+            $this->db->where($where);
+        } elseif ($where != null && $datafor == 'riwayat') {
+            $this->db->where($where);
+            $this->db->or_where('status_pembayaran', 'paid');
+            $this->db->or_where('status_pembayaran', 'cancel');
+        }
+        return $this->db->get()->result_array();
+    }
+
+    public function getBarang()
+    {
+        $this->db->select('*');
+        $this->db->from('tb_sewa');
+        $this->db->join('tb_detail_sewa', 'tb_sewa.id_sewa = tb_detail_sewa.id_sewa');
+        $this->db->join('tb_detail_bayar', 'tb_sewa.id_sewa = tb_detail_bayar.id_sewa');
+        $this->db->join('tb_barang', 'tb_barang.id_brg = tb_detail_sewa.id_brg');
+        $this->db->join('customer', 'tb_sewa.id_customer = customer.id_customer');
+        return $this->db->get()->result_array();
+    }
+
     public function tampil_data()
     {
         return $this->db->get('tb_barang');
+    }
+
+    public function tampil_feed()
+    {
+        return $this->db->get('tb_feed');
     }
 
     public function tampil()
@@ -137,5 +172,46 @@ class Model_barang extends CI_Model
     {
         $this->db->where($where);
         $this->db->update($table, $data);
+    }
+
+    public function tambah_sewa($data)
+    {
+        $this->db->insert('tb_sewa', $data);
+    }
+
+    public function insertDetailBayar($data)
+    {
+        $this->db->insert('tb_detail_bayar', $data);
+    }
+
+    public function insertFeed($data)
+    {
+        $this->db->insert('tb_feed', $data);
+    }
+
+    public function insertDetail($data)
+    {
+        $this->db->insert_batch('tb_detail_sewa', $data);
+    }
+
+    public function getReport($where, $type)
+    {
+        $this->db->select('*');
+        $this->db->from('tb_sewa');
+        $this->db->join('tb_detail_sewa', 'tb_sewa.id_sewa = tb_detail_sewa.id_sewa');
+        $this->db->join('tb_detail_bayar', 'tb_sewa.id_sewa = tb_detail_bayar.id_sewa');
+        $this->db->join('tb_barang', 'tb_barang.id_brg = tb_detail_sewa.id_brg');
+        $this->db->join('customer', 'tb_sewa.id_customer = customer.id_customer');
+        if ($type == 'items') {
+            $this->db->where('tb_detail_sewa.id_brg', $where);
+        } else {
+            $this->db->where('tanggal_sewa', $where);
+        }
+        return $this->db->get()->result_array();
+    }
+
+    public function setAvailable($data)
+    {
+        $this->db->update_batch('tb_barang', $data, 'id_brg');
     }
 }

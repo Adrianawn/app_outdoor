@@ -44,6 +44,11 @@
                     <span>Data Customer</span></a>
             </li>
             <li class="nav-item">
+                <a class="nav-link" href="<?php echo base_url('admin/transaksi/pesanan_sewa') ?>">
+                    <i class="fas fa-fw fa-random"></i>
+                    <span>Permintaan Sewa</span></a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" href="<?php echo base_url('admin/transaksi') ?>">
                     <i class="fas fa-fw fa-random"></i>
                     <span>Transaksi</span></a>
@@ -54,7 +59,7 @@
                     <span>Laporan</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="<?php echo base_url('admin/invoices') ?>">
+                <a class="nav-link" href="<?php echo base_url('admin/dashboard/feedback') ?>">
                     <i class="fas fa-fw fa-comments"></i>
                     <span>Feedback</span></a>
             </li>

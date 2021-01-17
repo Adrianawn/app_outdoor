@@ -18,7 +18,7 @@
                             <div class="card-body">
 
                                 <div class="row">
-                                    <div class="col-md-5 mt-5 ml-5" style="font-size: 30px;">
+                                    <div class="col-md-5 mt-5 ml-5" style="font-size: 15px;">
                                         <i class="fas fa-user fa-10x mt-3 ml-5"></i>
                                     </div>
                                     <div class="ml-2 mt-5 col-md-6">
@@ -46,10 +46,6 @@
                                             <tr>
                                                 <td>No. KTP</td>
                                                 <td><?php echo $dt->no_ktp ?></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Password</td>
-                                                <td><?php echo $dt->password ?></td>
                                             </tr>
 
 

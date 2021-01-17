@@ -6,11 +6,11 @@
                 <h4 class="font-rubik font-size-20">Pandanaran Outdoor</h4>
                 <p class="font-size-14 font-rale text-white-50 text-justify"> Aplikasi penyewaan peralatan outdoor untuk area Jawa Tengah khususnya Kota Semarang, yang dapat digunakan siapapun, kapanpun dan dimanapun.</p>
             </div>
-            <div class="col-lg-4 col-12 ml-4">
+            <div class="col-lg-4 col-12 ml-4" id="feed">
                 <h4 class="font-rubik font-size-20">Umpan Balik</h4>
-                <form class="form-row">
+                <form class="form-row" action="<?= base_url('dashboard/feedback') ?>" method="post">
                     <div class="col">
-                        <textarea class="rounded" style="outline: none;" cols="25" rows="2" placeholder=""></textarea>
+                        <textarea class="rounded" name="feed" style="outline: none;" cols="25" rows="2" placeholder=""></textarea>
                     </div>
                     <div class="col">
                         <button type="submit" class="btn color-secondary-bg mt-3 text-white">Kirim</button>
@@ -29,7 +29,7 @@
             <div class="col-lg-2 col-12 ml-2">
                 <h4 class="font-rubik font-size-20">Tentang Akun</h4>
                 <div class="d-flex flex-coloumn flex-wrap">
-                    <a href="<?php echo base_url() ?>/dashboard/profile"" class=" font-rale font-size-14 text-white-50 pb-1">Akun Saya</a>
+                    <a href="<?php echo base_url() ?>/dashboard/profile" class=" font-rale font-size-14 text-white-50 pb-1">Akun Saya</a>
                     <a href="#" class="font-rale font-size-14 text-white-50 pb-1 mr-5">Riwayat Sewa</a>
                     <a href="<?php echo base_url('dashboard/detail_keranjang') ?>" class="font-rale font-size-14 text-white-50 pb-1 mr-5">Keranjang</a>
                     <a href="#" class="font-rale font-size-14 text-white-50 pb-1">Umpan Balik</a>
@@ -62,6 +62,57 @@
 
 <!-- Custom Javascript -->
 <script src="<?php echo base_url() ?>assets/js/index.js"></script>
+<script type="text/javascript">
+    // function previewBukti() {
+    //     const img = document.querySelector('#bukti');
+    //     const imgPreview = document.querySelector('#preview');
+    //     const img = new FileReader();
+    //     img.readAsDataURL(img.files[0]);
+    //     img.onload = function(e) {
+    //         imgPreview.src = e.target.result;
+    //     }
+    // }
+    $(document).ready(function() {
+        $("#btn-payment").click(function() {
+            const r = new Date().toISOString().split('T')[0];
+            // const d_date = new Date(new Date(l_date).getTime() + days * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
+            $("#rent-date").val(r);
+            $(".btn-pay").attr('disabled', true);
+        });
+        $("#return-date").on("change paste keyup", function() {
+            const rentdate = new Date($("#rent-date").val());
+            const returndate = new Date($("#return-date").val());
+
+            const countdays = parseInt((returndate - rentdate) / (1000 * 60 * 60 * 24), 10);
+            // console.log(countdays);
+            if (countdays < 1) {
+                $(".total").val("Rp. 0");
+                $(".btn-pay").attr('disabled', true);
+            } else {
+                $(".btn-pay").attr('disabled', false);
+                const subtotal = $("#subtotal").val();
+                let total = subtotal * countdays;
+                // console.log(subtotal)
+                $("#total").val("Rp. " + total);
+            }
+        });
+        $("#jns_bayar").on("change paste keyup", function() {
+            const selBayar = document.getElementById("jns_bayar").selectedIndex;
+            const total = $("#total").val().substring(3);
+            if (selBayar == 0) {
+                $("#bayar").val();
+            } else if (selBayar == 1) {
+                $("#harusbayar").val('Rp. ' + total);
+            } else if (selBayar == 2) {
+                $("#harusbayar").val('Rp. ' + total * 0.5);
+            } else if (selBayar == 3) {
+                $("#harusbayar").val('Rp. ' + total * 0.3);
+            } else {
+                $("#harusbayar").val();
+            }
+        });
+    });
+</script>
 
 </body>
 
