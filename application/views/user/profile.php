@@ -50,10 +50,6 @@
 
 
                                         </table>
-                                        <?php echo anchor('admin/data_barang/edit/' . $dt->id_customer, '<div class="btn btn-sm btn-primary mt-3 ml-3 float-right">Edit</div>') ?>
-                                        <a href="<?php echo base_url('admin/data_customer') ?>">
-                                            <div class="btn btn-sm btn-danger mt-3 float-right">Back</div>
-                                        </a>
                                     </div>
                                 </div>
                             </div>

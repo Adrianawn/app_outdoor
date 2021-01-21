@@ -42,7 +42,7 @@ class Dashboard extends CI_Controller
 
         $this->cart->insert($data);
         $this->session->set_flashdata('asd');
-        redirect('dashboard');
+        redirect('dashboard/welcome');
     }
 
     public function tambah_ke_promo()
@@ -60,12 +60,13 @@ class Dashboard extends CI_Controller
 
         $this->cart->insert($data);
         $this->session->set_flashdata('asd');
-        redirect('dashboard');
+        redirect('dashboard/welcome');
     }
 
     public function detail($id_brg)
     {
-        $data['barang'] = $this->Model_barang->detail_brg($id_brg);
+        $data['promo']      = $this->Model_barang->data_promo();
+        $data['barang']     = $this->Model_barang->detail_brg($id_brg);
         $this->load->view('user/header');
         $this->load->view('user/detail_barang', $data);
         $this->load->view('user/footer');
@@ -73,7 +74,8 @@ class Dashboard extends CI_Controller
 
     public function detail_promo($id_brg)
     {
-        $data['barang'] = $this->Model_barang->detail_brg($id_brg);
+        $data['bundle']     = $this->Model_barang->data_bundle();
+        $data['barang']     = $this->Model_barang->detail_brg($id_brg);
         $this->load->view('user/header');
         $this->load->view('user/detail_promo', $data);
         $this->load->view('user/footer');
@@ -89,7 +91,7 @@ class Dashboard extends CI_Controller
     public function hapus_keranjang()
     {
         $this->cart->destroy();
-        redirect('dashboard/index');
+        redirect('dashboard/welcome');
     }
 
     public function pembayaran()
@@ -168,6 +170,16 @@ class Dashboard extends CI_Controller
     {
         $this->load->view('user/header');
         $this->load->view('user/about_us');
+        $this->load->view('user/footer');
+    }
+
+    public function welcome()
+    {
+        $data['barang']     = $this->Model_barang->tampil()->result();
+        $data['promo']      = $this->Model_barang->data_promo();
+        $data['bundle']     = $this->Model_barang->data_bundle();
+        $this->load->view('user/header');
+        $this->load->view('user/welcome', $data);
         $this->load->view('user/footer');
     }
 

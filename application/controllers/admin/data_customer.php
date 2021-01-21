@@ -53,7 +53,7 @@ class Data_customer extends CI_Controller
 
     public function update()
     {
-        $id                 = $this->input->post('id_brg');
+        $id                 = $this->input->post('id_customer');
         $nama               = $this->input->post('nama');
         $username           = $this->input->post('username');
         $alamat             = $this->input->post('alamat');

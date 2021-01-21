@@ -6,12 +6,13 @@ class Auth extends CI_Controller
     {
         parent::__construct();
         $this->load->model('model_barang');
-        $this->load->library('session');
+        $this->load->library('cart', 'session');
     }
 
 
     public function login()
     {
+        $this->cart->destroy();
         $this->_rules();
 
         if ($this->form_validation->run() == FALSE) {
@@ -38,7 +39,7 @@ class Auth extends CI_Controller
                         redirect('admin/dashboard');
                         break;
                     case 2:
-                        redirect('dashboard');
+                        redirect('dashboard/welcome');
                         break;
                     default:
                         break;
@@ -70,7 +71,7 @@ class Auth extends CI_Controller
         $pass_baru  = $this->input->post('pass_baru');
         $ulang_pass = $this->input->post('ulang_pass');
 
-        $this->form_validation->set_rules('pass_baru', 'Password Baru', 'required|matches[ulang_pass]');
+        $this->form_validation->set_rules('pass_baru', 'Password Baru', 'required|matches[pass_baru]');
         $this->form_validation->set_rules('ulang_pass', 'Ulangi Password', 'required');
 
         if ($this->form_validation->run() == FALSE) {

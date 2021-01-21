@@ -5,10 +5,10 @@
         <div class="font-rale font-size-14 ">
             <?php if ($this->session->userdata('nama')) { ?>
                 <a class="px-3 border-right border-left text-dark" href="<?php echo base_url() ?>dashboard/profile">Hallo <?php echo $this->session->userdata('nama') ?></a>
-                <a href="<?php echo base_url() ?>/auth/logout" class="px-3 border-right text-dark">Logout</a>
+                <a href="<?php echo base_url() ?>/auth/logout" class="px-3 border-right text-dark">Keluar</a>
             <?php } else { ?>
-                <a href="<?php echo base_url('register') ?>" class="px-3 border-right text-dark">Register</a>
-                <a href="<?php echo base_url('auth/login') ?>" class="px-3 border-right text-dark">Login</a>
+                <a href="<?php echo base_url('register') ?>" class="px-3 border-right text-dark">Daftar</a>
+                <a href="<?php echo base_url('auth/login') ?>" class="px-3 border-right text-dark">Masuk</a>
             <?php } ?>
         </div>
     </div>
@@ -16,12 +16,12 @@
     <!-- Primary Navigation-->
     <nav class="navbar navbar-expand-lg navbar-dark color-primary-bg">
         <div class="ml-5">
-            <a class="navbar-brand" href="<?php echo base_url('dashboard') ?>"> Outdoor</a>
+            <a class="navbar-brand" href="<?php echo base_url('dashboard/welcome') ?>">Pandanaran Outdoor</a>
         </div>
 
         <div class="container justify-content-center">
             <form class="form-inline">
-                <input class="form-control mr-sm-2 rounded-pill" type="search" placeholder="Search" aria-label="Search">
+
             </form>
         </div>
 
@@ -29,9 +29,14 @@
         <div class="navbar">
             <ul class="nav navbar-nav navbar-right mr-3">
                 <li>
-                    <?php $keranjang = '<span class="font=size-16 px-2 text-white"><i class="fas fa-shopping-cart fa-lg mt-1"></i>  ' . $this->cart->total_items() . '' ?>
+                    <?php if ($this->session->userdata('nama')) { ?>
+                        <?php $keranjang = '<span class="font=size-16 px-2 text-white"><i class="fas fa-shopping-cart fa-lg mt-1"></i>  ' . $this->cart->total_items() . '' ?>
 
-                    <?php echo anchor('dashboard/detail_keranjang', $keranjang) ?>
+                        <?php echo anchor('dashboard/detail_keranjang', $keranjang) ?>
+                    <?php } else { ?>
+
+                    <?php } ?>
+
                 </li>
             </ul>
         </div>
@@ -44,11 +49,11 @@
 
 <div class="container">
 
-    <div class="card mt-3">
+    <div class="card mt-4">
         <div class="card-header">
-            Detail Product
+            Detil Produk
         </div>
-        <div class="card-body">
+        <div class="card-body py-5">
 
             <?php foreach ($barang as $brg) : ?>
                 <div class="row">
@@ -68,11 +73,11 @@
                             </tr>
 
                             <tr>
-                                <td>Status Persediaan</td>
+                                <td>Stok Barang</td>
                                 <td> <?php if ($brg->status == "0") {
-                                            echo "<span class='badge badge-danger'> Not Available </span>";
+                                            echo "<span class='badge badge-danger'> Tidak Tersedia </span>";
                                         } else {
-                                            echo "<span class='badge badge-success'> Available </span>";
+                                            echo "<span class='badge badge-success'> Tersedia </span>";
                                         } ?></strong></td>
                             </tr>
 
@@ -86,7 +91,7 @@
                             <tr>
                                 <td>Harga Promo</td>
                                 <td><strong>
-                                        <div class="text-primary">Rp. <?php echo number_format($brg->promo, 0, ',', '.')  ?> / Day</div>
+                                        <div class="btn brn-sm btn-primary">Rp. <?php echo number_format($brg->promo, 0, ',', '.') ?> / Day</div>
                                     </strong></td>
                             </tr>
                             <form action="<?php echo base_url() . 'dashboard/tambah_ke_promo'; ?>" method="post" enctype="multipart/form-data">
@@ -100,7 +105,7 @@
                             echo '<div class="btn btn-sm color-primary-bg text-light mt-3 float-right">Add to Cart</div>';
                         }
                         ?>
-                        <?php echo anchor('dashboard/index/', '<div class="btn btn-sm btn-danger mt-3 mr-2 float-right">Back</div>') ?>
+                        <?php echo anchor('dashboard/welcome', '<div class="btn btn-sm btn-danger mt-3 mr-2 float-right">Back</div>') ?>
                     </div>
 
                 </div>
@@ -108,4 +113,36 @@
 
         </div>
     </div>
+
+    <!-- Bundle -->
+    <section id="new-product">
+        <div class="container py-5 mt-4">
+            <h4 class="font-rubik font-size-20">Paketan</h4>
+            <hr>
+            <!-- Owl Carousel -->
+            <div class="owl-carousel owl-theme ml-2">
+                <?php foreach ($bundle as $brg) : ?>
+
+                    <div class="item ml-2" style="width: 194px;">
+                        <div class="product">
+                            <a href="<?php echo base_url('dashboard/detail/' . $brg->id_brg) ?>"><img src="<?php echo base_url() . '/uploads/' . $brg->gambar ?>" class="img-fluid" alt="..."></a>
+                            <div class="text-center mt-2">
+                                <h5 class="card-title"><?php echo $brg->nama_brg ?></h5>
+                                <span class="badge badge-secondary"><small>Rp. <?php echo number_format($brg->harga, 0, ',', ',') ?> / Day</small></span><br> <small>
+                                    <?php if ($brg->status == "0") {
+                                        echo "<span class='badge badge-danger'> Tidak Tersedia </span>";
+                                    } else {
+                                        echo "<span class='badge badge-success'> Tersedia </span>";
+                                    } ?></small><br>
+                                <?php echo anchor('dashboard/detail/' . $brg->id_brg, '<div class="btn btn-sm color-primary-bg text-light mt-3">Detail Peralatan</div>') ?>
+                            </div><br>
+                        </div>
+                    </div>
+
+                <?php endforeach; ?>
+            </div>
+            <!-- !Owl Carousel -->
+        </div>
+    </section>
+    <!-- !Bundle -->
 </div><br>

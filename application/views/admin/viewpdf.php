@@ -80,7 +80,7 @@
                         <td>
                             Tipe : <?= $l['jns_pengambilan'] ?>
                             <hr>
-                            Tanggal Pengembalian : <?= $l['tanggal_pengembalian'] ?>
+                            Tgl. Pengembalian : <?= $l['tanggal_pengembalian'] ?>
                         </td>
                         <td>
                             Tipe :<?= $l['jns_pembayaran'] ?>

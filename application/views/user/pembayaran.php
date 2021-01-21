@@ -5,10 +5,10 @@
         <div class="font-rale font-size-14 ">
             <?php if ($this->session->userdata('nama')) { ?>
                 <a class="px-3 border-right border-left text-dark" href="<?php echo base_url() ?>dashboard/profile">Hallo <?php echo $this->session->userdata('nama') ?></a>
-                <a href="<?php echo base_url() ?>/auth/logout" class="px-3 border-right text-dark">Logout</a>
+                <a href="<?php echo base_url() ?>/auth/logout" class="px-3 border-right text-dark">Keluar</a>
             <?php } else { ?>
-                <a href="<?php echo base_url('register') ?>" class="px-3 border-right text-dark">Register</a>
-                <a href="<?php echo base_url('auth/login') ?>" class="px-3 border-right text-dark">Login</a>
+                <a href="<?php echo base_url('register') ?>" class="px-3 border-right text-dark">Daftar</a>
+                <a href="<?php echo base_url('auth/login') ?>" class="px-3 border-right text-dark">Masuk</a>
             <?php } ?>
         </div>
     </div>
@@ -16,12 +16,12 @@
     <!-- Primary Navigation-->
     <nav class="navbar navbar-expand-lg navbar-dark color-primary-bg">
         <div class="ml-5">
-            <a class="navbar-brand" href="<?php echo base_url('dashboard') ?>"> Outdoor</a>
+            <a class="navbar-brand" href="<?php echo base_url('dashboard/welcome') ?>">Pandanaran Outdoor</a>
         </div>
 
         <div class="container justify-content-center">
             <form class="form-inline">
-                <input class="form-control mr-sm-2 rounded-pill" type="search" placeholder="Search" aria-label="Search">
+
             </form>
         </div>
 
@@ -29,9 +29,14 @@
         <div class="navbar">
             <ul class="nav navbar-nav navbar-right mr-3">
                 <li>
-                    <?php $keranjang = '<span class="font=size-16 px-2 text-white"><i class="fas fa-shopping-cart fa-lg mt-1"></i>  ' . $this->cart->total_items() . '' ?>
+                    <?php if ($this->session->userdata('nama')) { ?>
+                        <?php $keranjang = '<span class="font=size-16 px-2 text-white"><i class="fas fa-shopping-cart fa-lg mt-1"></i>  ' . $this->cart->total_items() . '' ?>
 
-                    <?php echo anchor('dashboard/detail_keranjang', $keranjang) ?>
+                        <?php echo anchor('dashboard/detail_keranjang', $keranjang) ?>
+                    <?php } else { ?>
+
+                    <?php } ?>
+
                 </li>
             </ul>
         </div>

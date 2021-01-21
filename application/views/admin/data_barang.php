@@ -10,7 +10,7 @@
                     <th>Nama Barang</th>
                     <th>Kategori</th>
                     <th>Harga</th>
-                    <th>Status</th>
+                    <th>Stok Barang</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
@@ -30,9 +30,9 @@
                         <td>Rp. <?php echo number_format($brg->harga, 0, ',', '.') ?></td>
                         <td><?php
                             if ($brg->status == "0") {
-                                echo "<h5><span class='badge badge-pill badge-danger'> Not Available </span></h5>";
+                                echo "<h5><span class='badge badge-pill badge-danger'> Tidak Tersedia </span></h5>";
                             } else {
-                                echo "<h5><span class='badge badge-pill badge-primary'> Available </span></h5>";
+                                echo "<h5><span class='badge badge-pill badge-primary'> Tersedia </span></h5>";
                             }
                             ?> </td>
                         <td>
@@ -89,11 +89,11 @@
                     </div>
 
                     <div class="form-group">
-                        <label>Status</label>
+                        <label>Stok Barang</label>
                         <select name="status" class="form-control">
                             <option value="">-- Pilih Status --</option>
-                            <option value="1">Available</option>
-                            <option value="0">Not Available</option>
+                            <option value="1">Tersedia</option>
+                            <option value="0">Tidak Tersedia</option>
                         </select>
                         <?php echo form_error('status', '<div class="text-small text-danger">', '</div>') ?>
                     </div>

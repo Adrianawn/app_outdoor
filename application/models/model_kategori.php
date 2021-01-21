@@ -38,4 +38,10 @@ class Model_kategori extends CI_Model
         $query = $this->db->get_where("tb_barang", array('kategori' => 'accesories'));
         return $query->result();
     }
+
+    public function data_promo()
+    {
+        $query = $this->db->get_where("tb_barang", array('kategori' => 'promo'));
+        return $query->result();
+    }
 }

@@ -5,10 +5,10 @@
         <div class="font-rale font-size-14 ">
             <?php if ($this->session->userdata('nama')) { ?>
                 <a class="px-3 border-right border-left text-dark" href="<?php echo base_url() ?>dashboard/profile">Hallo <?php echo $this->session->userdata('nama') ?></a>
-                <a href="<?php echo base_url() ?>/auth/logout" class="px-3 border-right text-dark">Logout</a>
+                <a href="<?php echo base_url() ?>/auth/logout" class="px-3 border-right text-dark">Keluar</a>
             <?php } else { ?>
-                <a href="<?php echo base_url('register') ?>" class="px-3 border-right text-dark">Register</a>
-                <a href="<?php echo base_url('auth/login') ?>" class="px-3 border-right text-dark">Login</a>
+                <a href="<?php echo base_url('register') ?>" class="px-3 border-right text-dark">Daftar</a>
+                <a href="<?php echo base_url('auth/login') ?>" class="px-3 border-right text-dark">Masuk</a>
             <?php } ?>
         </div>
     </div>
@@ -16,12 +16,12 @@
     <!-- Primary Navigation-->
     <nav class="navbar navbar-expand-lg navbar-dark color-primary-bg">
         <div class="ml-5">
-            <a class="navbar-brand" href="<?php echo base_url('dashboard') ?>"> Outdoor</a>
+            <a class="navbar-brand" href="<?php echo base_url('dashboard/welcome') ?>">Pandanaran Outdoor</a>
         </div>
 
         <div class="container justify-content-center">
             <form class="form-inline">
-                <input class="form-control mr-sm-2 rounded-pill" type="search" placeholder="Search" aria-label="Search">
+
             </form>
         </div>
 
@@ -29,9 +29,14 @@
         <div class="navbar">
             <ul class="nav navbar-nav navbar-right mr-3">
                 <li>
-                    <?php $keranjang = '<span class="font=size-16 px-2 text-white"><i class="fas fa-shopping-cart fa-lg mt-1"></i>  ' . $this->cart->total_items() . '' ?>
+                    <?php if ($this->session->userdata('nama')) { ?>
+                        <?php $keranjang = '<span class="font=size-16 px-2 text-white"><i class="fas fa-shopping-cart fa-lg mt-1"></i>  ' . $this->cart->total_items() . '' ?>
 
-                    <?php echo anchor('dashboard/detail_keranjang', $keranjang) ?>
+                        <?php echo anchor('dashboard/detail_keranjang', $keranjang) ?>
+                    <?php } else { ?>
+
+                    <?php } ?>
+
                 </li>
             </ul>
         </div>
@@ -43,7 +48,7 @@
 <!-- End Header -->
 
 <div class="container py-5 mb-5">
-    <h4 class="font-rubik font-size-20 text-dark">Shopping Cart</h4>
+    <h4 class="font-rubik font-size-20 text-dark">Keranjang Belanja</h4>
     <hr>
 </div>
 
@@ -80,13 +85,13 @@
     <a href="<?php echo base_url('dashboard/hapus_keranjang') ?>">
         <div class="btn btn-sm btn-danger ml-1 mb-5 mt-3">Hapus Semua</div>
     </a>
-    <a href="<?php echo base_url('dashboard/index') ?>">
+    <a href="<?php echo base_url('dashboard/welcome') ?>">
         <div class="btn btn-sm color-primary-bg text-white ml-1 mb-5 mt-3">Kembali Belanja</div>
     </a>
     <button class="btn btn-sm btn-success ml-1 mb-5 mt-3" id="btn-payment" data-toggle="modal" data-target="#bayar">Lanjut</button>
 </div>
 <div class="modal fade" id="bayar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <div class="container font-size-20 text-center font-baloo ml-4 text-primary">
@@ -111,7 +116,7 @@
                 <?php endforeach; ?>
                 <div class="modal-body">
                     <div class="row">
-                        <div class="col-lg-5">
+                        <div class="col-lg-12">
                             <div class="form-group">
                                 <label>Nama Lengkap</label>
                                 <input type="text" name="alamat" placeholder="Nama Lengkap Anda" class="form-control" value="<?= $this->session->userdata('nama') ?>" readonly>
@@ -127,12 +132,12 @@
 
                             <div class="form-group">
                                 <label>Tanggal Sewa</label>
-                                <input type="date" name="tanggal_sewa" id="rent-date" class="form-control" readonly>
+                                <input type="date" name="tanggal_sewa" id="rent-date" class="form-control">
                             </div>
 
                             <div class="form-group">
                                 <label>Tanggal Kembali</label>
-                                <input type="date" name="tanggal_kembali" id="return-date" placeholder="Nomor Telepon Anda" class="form-control">
+                                <input type="date" name="tanggal_kembali" id="return-date" class="form-control">
                             </div>
 
                             <div class="form-group">
@@ -140,7 +145,6 @@
                                 <select class="form-control" name="jns_ambil">
                                     <option>-- Choose --</option>
                                     <option value="Ketoko">Datang Ketoko</option>
-                                    <option value="COD">Ketemuan</option>
                                     <option value="Diantar">Diantar Kerumah (Khusus Semarang Timur)</option>
                                 </select>
                             </div>
@@ -168,7 +172,6 @@
                             <div class="form-group">
                                 <label>Upload Bukti Pembayaran</label><br>
                                 <input type="file" name="bukti_bayar" id="bukti" class="form-control">
-                                <img class="img-fluid w-100 mh-100" id="preview" src="<?= base_url('assets/img/ok.jpg') ?>" alt="Chania">
                             </div>
                         </div>
                     </div>
@@ -185,4 +188,6 @@
         ?>
         </div>
     </div>
+</div>
+</div>
 </div>

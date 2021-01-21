@@ -1,11 +1,11 @@
-<div class="container-fluid">
+<div class="container-fluid mt-5">
     <div class="section-class">
         <table class="table table-hover table-striped">
             <thead>
                 <tr>
                     <th>No</th>
-                    <th>Nama User</th>
-                    <th>Feedback</th>
+                    <th>Nama Customer</th>
+                    <th>Umpan Balik</th>
                 </tr>
             </thead>
 

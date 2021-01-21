@@ -4,7 +4,7 @@
 
 
     <?php foreach ($detail as $dt) : ?>
-        <div class="card">
+        <div class="card mt-5 mb-5">
             <div class="card-body">
 
                 <div class="row">
@@ -67,5 +67,5 @@
                 </div>
             </div>
         </div>
+    <?php endforeach ?>
 </div>
-<?php endforeach ?>

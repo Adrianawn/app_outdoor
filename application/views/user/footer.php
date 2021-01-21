@@ -29,10 +29,17 @@
             <div class="col-lg-2 col-12 ml-2">
                 <h4 class="font-rubik font-size-20">Tentang Akun</h4>
                 <div class="d-flex flex-coloumn flex-wrap">
-                    <a href="<?php echo base_url() ?>/dashboard/profile" class=" font-rale font-size-14 text-white-50 pb-1">Akun Saya</a>
-                    <a href="#" class="font-rale font-size-14 text-white-50 pb-1 mr-5">Riwayat Sewa</a>
-                    <a href="<?php echo base_url('dashboard/detail_keranjang') ?>" class="font-rale font-size-14 text-white-50 pb-1 mr-5">Keranjang</a>
-                    <a href="#" class="font-rale font-size-14 text-white-50 pb-1">Umpan Balik</a>
+                    <?php if ($this->session->userdata('nama')) { ?>
+                        <a class="font-rale font-size-14 text-white-50 pb-1" href="<?php echo base_url() ?>dashboard/profile">Akun Saya</a>
+                        <a href="<?php echo base_url('dashboard/permintaan_sewa') ?>" class="font-rale font-size-14 text-white-50 pb-1 mr-5">Permintaan Sewa</a>
+                        <a href="<?php echo base_url('dashboard/riwayat_sewa') ?>" class="font-rale font-size-14 text-white-50 pb-1 mr-5">Riwayat Sewa</a>
+                        <a href="<?php echo base_url('dashboard/detail_keranjang') ?>" class="font-rale font-size-14 text-white-50 pb-1 mr-5">Keranjang</a>
+                    <?php } else { ?>
+                        <a class="font-rale font-size-14 text-white-50 pb-1" href="<?php echo base_url('auth/login') ?>">Akun Saya</a>
+                        <a href="<?php echo base_url('auth/login') ?>" class="font-rale font-size-14 text-white-50 pb-1 mr-5">Permintaan Sewa</a>
+                        <a href="<?php echo base_url('auth/login') ?>" class="font-rale font-size-14 text-white-50 pb-1 mr-5">Riwayat Sewa</a>
+                        <a href="<?php echo base_url('auth/login') ?>" class="font-rale font-size-14 text-white-50 pb-1 mr-5">Keranjang</a>
+                    <?php } ?>
                 </div>
             </div>
         </div>

@@ -50,7 +50,7 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="<?php echo base_url('admin/transaksi') ?>">
-                    <i class="fas fa-fw fa-random"></i>
+                    <i class="fas fa-fw fa-coins"></i>
                     <span>Transaksi</span></a>
             </li>
             <li class="nav-item">
@@ -61,7 +61,7 @@
             <li class="nav-item">
                 <a class="nav-link" href="<?php echo base_url('admin/dashboard/feedback') ?>">
                     <i class="fas fa-fw fa-comments"></i>
-                    <span>Feedback</span></a>
+                    <span>Umpan Balik</span></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="<?php echo base_url('auth/logout') ?>">

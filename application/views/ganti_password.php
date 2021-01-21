@@ -51,7 +51,7 @@
                                     </div>
                                     <form class="user mt-3" method="POST" action="<?php echo base_url('auth/ganti_password_aksi') ?>">
                                         <div class="form-group">
-                                            <input name="pass_baru" type="password" class="form-control form-control-user" id="exampleInputUsername" aria-describedby="emailHelp" placeholder="Password Baru">
+                                            <input name="pass_baru" type="password" class="form-control form-control-user" id="exampleInputUsername" placeholder="Password Baru">
                                             <?php echo form_error('pass_baru', '<div class="ml-2 text-danger text-small">', '</div>') ?>
                                         </div>
                                         <div class="form-group">

@@ -33,7 +33,7 @@
                                 <td>Harga Promo</td>
                                 <td><?php
                                     if ($dt->promo == "0") {
-                                        echo "<h5><span class='badge text-danger'> No Promo </span></h5>";
+                                        echo "<h5><span class='badge text-danger'> Tidak Ada Promo </span></h5>";
                                     } else {
                                         echo "<h5><span class='badge text-primary'>$dt->promo </span></h5>";
                                     }
@@ -44,9 +44,9 @@
                                 <td>Status</td>
                                 <td><?php
                                     if ($dt->status == "0") {
-                                        echo "<h5><span class='badge badge-pill badge-danger'> Not Available </span></h5>";
+                                        echo "<h5><span class='badge badge-pill badge-danger'> Tidak Tersedia </span></h5>";
                                     } else {
-                                        echo "<h5><span class='badge badge-pill badge-primary'> Available </span></h5>";
+                                        echo "<h5><span class='badge badge-pill badge-primary'> Tersedia </span></h5>";
                                     }
                                     ?></td>
                             </tr>

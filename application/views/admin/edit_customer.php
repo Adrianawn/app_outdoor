@@ -12,19 +12,19 @@
             </div>
             <div class="form-group">
                 <label>Username</label>
-                <input type="hidden" name="id_username" class="form-control" value="<?php echo $cs->id_customer ?>">
+                <input type="hidden" name="id_customer" class="form-control" value="<?php echo $cs->id_customer ?>">
                 <input type="text" name="username" class="form-control" value="<?php echo $cs->username ?>">
             </div>
             <div class="form-group">
                 <label>Alamat</label>
                 <input type="text" name="alamat" class="form-control" value="<?php echo $cs->alamat ?>">
             </div>
-            <div class="form-group">
+            <div class="form-group mt-2">
                 <label>Gender</label>
                 <select class="form-control" name="gender">
-                    <option value="">-- Chose Gender --</option>
-                    <option value="<?php echo $cs->gender ?>">Laki - Laki</option>
-                    <option value="<?php echo $cs->gender ?>">Perempuan</option>
+                    <option value="<?php echo $cs->gender ?>">-- Pilih --</option>
+                    <option value="laki-laki">Laki - Laki</option>
+                    <option value="perempuan">Perempuan</option>
                 </select><br>
             </div>
             <div class="form-group">
