@@ -47,7 +47,7 @@
                             <div class="col-lg-6 py-5 mt-1">
                                 <div class="p-5">
                                     <div class="text-center">
-                                        <h1 class="h4 text-gray-900 mb-4">Ganti Password</h1>
+                                        <h1 class="h4 text-gray-900 mb-4">Ganti Password !</h1>
                                     </div>
                                     <form class="user mt-3" method="POST" action="<?php echo base_url('auth/ganti_password_aksi') ?>">
                                         <div class="form-group">
