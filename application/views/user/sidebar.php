@@ -58,7 +58,9 @@
             <span class="sidebar-brand d-flex align-items-center justify-content-center text-primary">
                 <div class="sidebar-brand-icon">
                 </div>
-                <div class="sidebar-brand-text mx-3">Hallo <?php echo $this->session->userdata('nama') ?></sup></div>
+                <a href="<?php echo base_url('/dashboard/profile') ?>">
+                    <div class="sidebar-brand-text mx-3">Hallo <?php echo $this->session->userdata('nama') ?></sup></div>
+                </a>
             </span>
 
             <!-- Divider -->
