@@ -25,7 +25,6 @@
 
         <div class="container justify-content-center">
             <form class="form-inline">
-                <input class="form-control mr-sm-2 rounded-pill" type="search" placeholder="Search" aria-label="Search">
             </form>
         </div>
 
